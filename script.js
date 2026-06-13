@@ -33,6 +33,8 @@ function renderHabits() {
         else {
           button.textContent = "Complete";
         }
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
       const li = document.createElement("li");
         li.textContent = habit.name;
         if (habit.completed) {
@@ -43,12 +45,18 @@ function renderHabits() {
         }
         habitList.appendChild(li);
         li.appendChild(button);
+        li.appendChild(deleteButton);
 
         button.addEventListener("click", function() {
           habits[index].completed = 
           !habits[index].completed;
           renderHabits();
-      });
+        });
+
+        deleteButton.addEventListener("click", function(){
+          habits.splice(index, 1);
+          renderHabits();
+        });
    }
 }
 
