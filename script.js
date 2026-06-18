@@ -1,10 +1,9 @@
-let habits = [
-
-];
-
+//declare the list, button, and text box variables
 const habitList = document.getElementById("habit-list");    //the list
 const addButton = document.getElementById("add-button");    //button
 const habitInput = document.getElementById("habit-input");  //text box
+//create the habit array
+let habits = [];
 
 //function save to local storage
 function saveHabits() {
@@ -12,13 +11,31 @@ function saveHabits() {
       localStorage.setItem("habitKey", stringHabits);
 }
 
-
 //function load from local storage
 function loadHabits() {
-      const loadHabits = localStorage.getItem(habitKey);
-      const savedHabits = JSON.parse(loadHabits);
+  if("habitKey"){
+      const getHabits = localStorage.getItem(habitKey);
+      const savedHabits = JSON.parse(getHabits);
       habits = savedHabits;
+  }
 }
+
+//add habit button
+addButton.addEventListener("click", function() {
+
+   const newHabit = habitInput.value;
+
+   habits.push({
+     name: newHabit,
+     completed: false
+   });
+
+   saveHabits();
+   renderHabits();
+
+   habitInput.value = "";
+
+});
 
 //render habit function. Clears the page first. 
 function renderHabits() {
@@ -40,9 +57,6 @@ function renderHabits() {
         else {
           button.textContent = "Complete";
         }
-
-
-
         button.addEventListener("click", function() {
           habits[index].completed = 
           !habits[index].completed;
@@ -71,25 +85,12 @@ function renderHabits() {
         li.appendChild(button);
         li.appendChild(deleteButton);
 
-   }
-}
+   } //end of for loop.
+} //end of render function
 
+//run the render habit function
+loadHabits();
 renderHabits();
 
-//add habit button
-addButton.addEventListener("click", function() {
 
-   const newHabit = habitInput.value;
-
-   habits.push({
-     name: newHabit,
-     completed: false
-   });
-
-   saveHabits();
-   renderHabits();
-
-   habitInput.value = "";
-
-});
 
