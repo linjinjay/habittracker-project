@@ -12,9 +12,10 @@ function saveHabits() {
 }
 
 //function load from local storage
+const getHabits = localStorage.getItem("habitKey");
 function loadHabits() {
-  if("habitKey"){
-      const getHabits = localStorage.getItem(habitKey);
+  if(getHabits !== null){
+      
       const savedHabits = JSON.parse(getHabits);
       habits = savedHabits;
   }
@@ -25,6 +26,9 @@ addButton.addEventListener("click", function() {
 
    const newHabit = habitInput.value;
 
+   if(newHabit.trim() == "") {
+   }
+   else {
    habits.push({
      name: newHabit,
      completed: false
@@ -34,8 +38,12 @@ addButton.addEventListener("click", function() {
    renderHabits();
 
    habitInput.value = "";
-
+}
 });
+
+
+    
+
 
 //render habit function. Clears the page first. 
 function renderHabits() {
@@ -48,6 +56,8 @@ function renderHabits() {
      //create list variable. Displays the habit list. 
       const li = document.createElement("li");
         li.textContent = habit.name;
+
+
 
      //complete button, if completed is true, button will show undo.
       const button = document.createElement("button");
@@ -74,6 +84,11 @@ function renderHabits() {
           renderHabits();
         });
 
+//Habit counter. Total number of habits.
+   const totalHabits = document.createElement("button");
+   totalHabits.textContent = "Total";
+
+
       //cross off habit if it is completed with a line through. 
         if (habit.completed) {
           li.style.textDecoration = "line-through";
@@ -87,6 +102,8 @@ function renderHabits() {
 
    } //end of for loop.
 } //end of render function
+
+
 
 //run the render habit function
 loadHabits();
