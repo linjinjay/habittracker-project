@@ -2,6 +2,8 @@
 const habitList = document.getElementById("habit-list");    //the list
 const addButton = document.getElementById("add-button");    //button
 const habitInput = document.getElementById("habit-input");  //text box
+//Total habits counter
+const totalHabits = document.getElementById("total-habits");
 //create the habit array
 let habits = [];
 
@@ -42,7 +44,7 @@ addButton.addEventListener("click", function() {
 });
 
 
-    
+
 
 
 //render habit function. Clears the page first. 
@@ -84,10 +86,6 @@ function renderHabits() {
           renderHabits();
         });
 
-//Habit counter. Total number of habits.
-   const totalHabits = document.createElement("button");
-   totalHabits.textContent = "Total";
-
 
       //cross off habit if it is completed with a line through. 
         if (habit.completed) {
@@ -96,6 +94,8 @@ function renderHabits() {
         else {
           li.textContent = habit.name;
         }
+
+
         habitList.appendChild(li);
         li.appendChild(button);
         li.appendChild(deleteButton);
