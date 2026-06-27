@@ -111,18 +111,21 @@ function renderHabits() {
    } //end of for loop.
 } //end of render function
 
-
+//number of completed habits
 //start count at 0
 let count = 0;
-
-//test change variable
+//look at each habit
+for(let i = 0; i < habits.length; i++) {
+//testing if statement
+let habit = habits[i];
+if (habit.completed) { 
 count = count + 1;
-
+} //end of if
+} //end of for
 //displays the count after checking every habit
 completedHabits.textContent = "Completed Habits: " + count;
 
 //run the render habit function
 loadHabits();
 renderHabits();
-
 
