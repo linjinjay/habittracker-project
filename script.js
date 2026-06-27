@@ -99,8 +99,7 @@ function renderHabits() {
           li.textContent = habit.name;
         }
 
-       //Display the number of total habit
-        totalHabits.textContent = "Total Habits: " + habits.length;
+
 
 
 
@@ -109,7 +108,9 @@ function renderHabits() {
         li.appendChild(deleteButton);
 
    } //end of for loop.
-} //end of render function
+
+//Display the number of total habit
+        totalHabits.textContent = "Total Habits: " + habits.length;
 
 //number of completed habits
 //start count at 0
@@ -124,6 +125,11 @@ count = count + 1;
 } //end of for
 //displays the count after checking every habit
 completedHabits.textContent = "Completed Habits: " + count;
+
+
+
+} //end of render function
+
 
 //run the render habit function
 loadHabits();
