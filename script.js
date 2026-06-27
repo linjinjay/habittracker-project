@@ -95,6 +95,8 @@ function renderHabits() {
           li.textContent = habit.name;
         }
 
+       //Display the number of total habit
+        totalHabits.textContent = "Total Habits: " + habits.length;
 
         habitList.appendChild(li);
         li.appendChild(button);
@@ -108,6 +110,5 @@ function renderHabits() {
 //run the render habit function
 loadHabits();
 renderHabits();
-
 
 
