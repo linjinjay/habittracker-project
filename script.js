@@ -6,6 +6,8 @@ const habitInput = document.getElementById("habit-input");  //text box
 const totalHabits = document.getElementById("total-habits");
 //count the completed habits counter
 const completedHabits = document.getElementById("completed-habits");
+//remaining habits counter
+const remainHabits = document.getElementById("remaining-habits");
 //create the habit array
 let habits = [];
 
@@ -126,6 +128,10 @@ count = count + 1;
 //displays the count after checking every habit
 completedHabits.textContent = "Completed Habits: " + count;
 
+//remaining habits counter
+remainCount = habits.length - count;
+remainHabits.textContent = "Remaining Habits: " + remainCount;
+
 
 
 } //end of render function
@@ -134,4 +140,3 @@ completedHabits.textContent = "Completed Habits: " + count;
 //run the render habit function
 loadHabits();
 renderHabits();
-
