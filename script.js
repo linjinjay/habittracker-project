@@ -49,7 +49,10 @@ addButton.addEventListener("click", function() {
 
 
 
-
+//update stats function
+function updateStat(element, label, value) {
+      element.textContent = label + value;
+}
 
 
 
@@ -112,7 +115,8 @@ function renderHabits() {
    } //end of for loop.
 
 //Display the number of total habit
-        totalHabits.textContent = "Total Habits: " + habits.length;
+updateStat(totalHabits, "Total Habits: ", habits.length);
+      
 
 //number of completed habits
 //start count at 0
@@ -126,11 +130,11 @@ count = count + 1;
 } //end of if
 } //end of for
 //displays the count after checking every habit
-completedHabits.textContent = "Completed Habits: " + count;
+updateStat(completedHabits, "Completed Habits: ", count);
 
 //remaining habits counter
 remainCount = habits.length - count;
-remainHabits.textContent = "Remaining Habits: " + remainCount;
+updateStat(remainHabits, "Remaining Habits: ", remainCount);
 
 
 
