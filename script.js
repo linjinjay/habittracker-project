@@ -18,8 +18,9 @@ function saveHabits() {
 }
 
 //function load from local storage
-const getHabits = localStorage.getItem("habitKey");
 function loadHabits() {
+  const getHabits = localStorage.getItem("habitKey");
+
   if(getHabits !== null){
       
       const savedHabits = JSON.parse(getHabits);
@@ -30,13 +31,14 @@ function loadHabits() {
 //declare add habit function
 function addHabit() {
    const newHabit = habitInput.value;
-   if(newHabit.trim() == "") {}
-   else {
-     habits.push({
+   if(newHabit.trim() == "") {
+      return;
+   }
+
+   habits.push({
         name: newHabit,
         completed: false
    });  //end of push
-}  //end of else
    saveHabits();
    renderHabits();
    habitInput.value = "";
