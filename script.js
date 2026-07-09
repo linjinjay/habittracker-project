@@ -27,34 +27,27 @@ function loadHabits() {
   }
 }
 
-//add habit button
-addButton.addEventListener("click", function() {
-
+//declare add habit function
+function addHabit() {
    const newHabit = habitInput.value;
-
-   if(newHabit.trim() == "") {
-   }
+   if(newHabit.trim() == "") {}
    else {
-   habits.push({
-     name: newHabit,
-     completed: false
-   });
-
+     habits.push({
+        name: newHabit,
+        completed: false
+   });  //end of push
+}  //end of else
    saveHabits();
    renderHabits();
-
    habitInput.value = "";
-}
-});
-
+}  //end of addHabit function
+//listen for add habit button to be clicked
+addButton.addEventListener("click", addHabit);
 
 //update stats function
 function updateStat(element, label, value) {
    element.textContent = label + value;
 }
-
-
-
 
 //render habit function. Clears the page first. 
 function renderHabits() {
@@ -68,9 +61,7 @@ function renderHabits() {
       const li = document.createElement("li");
         li.textContent = habit.name;
 
-
-
-     //complete button, if completed is true, button will show undo.
+   //complete button, if completed is true, button will show undo.
       const button = document.createElement("button");
         if (habit.completed) {
            button.textContent = "Undo";
@@ -78,23 +69,27 @@ function renderHabits() {
         else {
           button.textContent = "Complete";
         }
-        button.addEventListener("click", function() {
-          habits[index].completed = 
-          !habits[index].completed;
-          saveHabits();
-          renderHabits();
-        });
+        //declare toggle habit completed function 
+        function toggleHabitCompleted() {
+            habits[index].completed = !habits[index].completed;
+            saveHabits();
+            renderHabits();
+         }
+      //listen for click of the button
+      button.addEventListener("click", toggleHabitCompleted);
 
-      //delete button. 
+   //delete button. 
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Delete";
 
-        deleteButton.addEventListener("click", function(){
-          habits.splice(index, 1);
-          saveHabits();
-          renderHabits();
-        });
-
+       //declare delete habit function
+        function deleteHabit() {
+           habits.splice(index, 1);
+           saveHabits();
+           renderHabits();
+        }
+      //listen for click of the delete button.
+        deleteButton.addEventListener("click", deleteHabit);
 
       //cross off habit if it is completed with a line through. 
         if (habit.completed) {
@@ -103,10 +98,6 @@ function renderHabits() {
         else {
           li.textContent = habit.name;
         }
-
-
-
-
 
         habitList.appendChild(li);
         li.appendChild(button);
@@ -118,7 +109,7 @@ function renderHabits() {
 updateStat(totalHabits, "Total Habits: ", habits.length);
 
 //number of completed habits
-function countCompletedHabits() {
+function countCompletedHabits(habits) {
 //start count at 0
 let count = 0;
 //look at each habit
@@ -133,17 +124,14 @@ return count;
 }  // end of countCompleteHabits function
 
 //displays the count after checking every habit
-const completedCount = countCompletedHabits();
+const completedCount = countCompletedHabits(habits);
 updateStat(completedHabits, "Completed Habits: ", completedCount);
 
 //remaining habits counter
 const remainCount = habits.length - completedCount;
 updateStat(remainHabits, "Remaining Habits: ", remainCount);
 
-
-
 } //end of render function
-
 
 //run the render habit function
 loadHabits();
