@@ -28,17 +28,21 @@
      } //end of if
    }  // end of loadHabits function
 
+//declare create new habit function
+   function createHabit(name) {      
+      return {name: name,
+      completed: false};      
+    }
+
 //declare add habit function
    function addHabit() {
       const newHabit = habitInput.value;
       if(newHabit.trim() == "") {
       return;
     }  // end of if
-
-   habits.push({
-        name: newHabit,
-        completed: false
-   });  //end of push
+   const habit = createHabit(newHabit);
+   habits.push(habit);  //end of push
+   
    saveHabits();
    renderHabits();
    habitInput.value = "";
