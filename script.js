@@ -23,15 +23,24 @@
 
    if(getHabits !== null){
       
-      const savedHabits = JSON.parse(getHabits);
-      habits = savedHabits;
+      const savedHabits = JSON.parse(getHabits);        
+      habits = [];
+      for(let i = 0; i < savedHabits.length; i++) {
+         let savedHabit = savedHabits[i]; 
+         const newHabit = createHabit(savedHabit.name, savedHabit.completed);
+         habits.push(newHabit);
+       } // end of for
+      
      } //end of if
    }  // end of loadHabits function
 
 //declare create new habit function
-   function createHabit(name) {      
+   function createHabit(name, completed) {      
       return {name: name,
-      completed: false};      
+      completed: completed,  
+      toggleCompleted () {
+         this.completed = !this.completed;
+      }};    
     }
 
 //declare add habit function
@@ -76,14 +85,17 @@
         else {
           button.textContent = "Complete";
         }  // end of else
-    //declare toggle habit completed function 
-        function toggleHabitCompleted() {
-            habits[index].completed = !habits[index].completed;
+
+
+    //declare handleToggleHabit function
+        function handleToggleHabit(){
+            habit.toggleCompleted();
             saveHabits();
             renderHabits();
-         }  // end of toggleHabitCompleted function
+        }
+
     //listen for click of the button
-        button.addEventListener("click", toggleHabitCompleted);
+        button.addEventListener("click", handleToggleHabit);
 
     //delete button. 
       const deleteButton = document.createElement("button");
