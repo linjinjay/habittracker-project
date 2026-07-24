@@ -27,21 +27,23 @@
       habits = [];
       for(let i = 0; i < savedHabits.length; i++) {
          let savedHabit = savedHabits[i]; 
-         const newHabit = createHabit(savedHabit.name, savedHabit.completed);
+         const newHabit = new Habit(savedHabit.name, savedHabit.completed);
          habits.push(newHabit);
        } // end of for
       
      } //end of if
    }  // end of loadHabits function
 
-//declare create new habit function
-   function createHabit(name, completed) {      
-      return {name: name,
-      completed: completed,  
-      toggleCompleted () {
-         this.completed = !this.completed;
-      }};    
-    }
+//declare create new habit class
+   class Habit {
+      constructor(name, completed) {
+         this.name = name;
+         this.completed = completed;
+         } //end of constructor
+         toggleCompleted() {
+            this.completed = !this.completed;
+         } //end of toggleCompleted
+      } //end of Habit class
 
 //declare add habit function
    function addHabit() {
@@ -49,7 +51,7 @@
       if(newHabit.trim() == "") {
       return;
     }  // end of if
-   const habit = createHabit(newHabit);
+   const habit = new Habit(newHabit);
    habits.push(habit);  //end of push
    
    saveHabits();
