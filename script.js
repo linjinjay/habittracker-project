@@ -8,12 +8,46 @@
   const completedHabits = document.getElementById("completed-habits");
 //remaining habits counter
   const remainHabits = document.getElementById("remaining-habits");
+
+//declare create new habit class
+   class Habit {
+      constructor(name, completed = false) {
+         this.name = name;
+         this.completed = completed;
+         } //end of constructor
+         toggleCompleted() {
+            this.completed = !this.completed;
+         } //end of toggleCompleted
+      } //end of Habit class
+
 //create the habit array
-  let habits = [];
+   class HabitTracker {
+      constructor() {
+          this.habits = [];  
+     } // end of constructor
+
+//count number of completed habits
+   countCompletedHabits() {
+  //start count at 0
+    let count = 0;
+  //look at each habit
+    for(let i = 0; i < this.habits.length; i++) {
+  //testing if statement
+    let habit = this.habits[i];
+    if (habit.completed) { 
+    count = count + 1;
+    } //end of if habit.complete condition
+    } //end of for
+    return count;
+    }  // end of countCompleteHabits function
+ } // end of class
+
+//declare tracker array variable
+   const tracker = new HabitTracker();
 
 //function save to local storage
    function saveHabits() {
-      const stringHabits = JSON.stringify(habits);
+      const stringHabits = JSON.stringify(tracker.habits);
       localStorage.setItem("habitKey", stringHabits);
    }
 
@@ -24,26 +58,15 @@
    if(getHabits !== null){
       
       const savedHabits = JSON.parse(getHabits);        
-      habits = [];
+      tracker.habits = [];
       for(let i = 0; i < savedHabits.length; i++) {
          let savedHabit = savedHabits[i]; 
          const newHabit = new Habit(savedHabit.name, savedHabit.completed);
-         habits.push(newHabit);
+         tracker.habits.push(newHabit);
        } // end of for
       
      } //end of if
    }  // end of loadHabits function
-
-//declare create new habit class
-   class Habit {
-      constructor(name, completed) {
-         this.name = name;
-         this.completed = completed;
-         } //end of constructor
-         toggleCompleted() {
-            this.completed = !this.completed;
-         } //end of toggleCompleted
-      } //end of Habit class
 
 //declare add habit function
    function addHabit() {
@@ -52,7 +75,7 @@
       return;
     }  // end of if
    const habit = new Habit(newHabit);
-   habits.push(habit);  //end of push
+   tracker.habits.push(habit);  //end of push
    
    saveHabits();
    renderHabits();
@@ -72,8 +95,8 @@
       habitList.innerHTML = "";
 
    //For loop to cycle through the habit array.
-     for(let index = 0; index < habits.length; index++) {
-        let habit = habits[index];
+     for(let index = 0; index < tracker.habits.length; index++) {
+        let habit = tracker.habits[index];
 
    //create list variable. Displays the habit list. 
       const li = document.createElement("li");
@@ -105,7 +128,7 @@
 
     //declare delete habit function
         function deleteHabit() {
-           habits.splice(index, 1);
+           tracker.habits.splice(index, 1);
            saveHabits();
            renderHabits();
         }  // end of deleteHabit function
@@ -127,29 +150,14 @@
    } //end of for loop.
 
 //Display the number of total habit     
-   updateStat(totalHabits, "Total Habits: ", habits.length);
-
-//number of completed habits
-   function countCompletedHabits(habits) {
-  //start count at 0
-    let count = 0;
-  //look at each habit
-    for(let i = 0; i < habits.length; i++) {
-  //testing if statement
-    let habit = habits[i];
-    if (habit.completed) { 
-    count = count + 1;
-    } //end of if habit.complete condition
-    } //end of for
-    return count;
-    }  // end of countCompleteHabits function
+   updateStat(totalHabits, "Total Habits: ", tracker.habits.length);
 
 //displays the count after checking every habit
-   const completedCount = countCompletedHabits(habits);
+   const completedCount = tracker.countCompletedHabits();
    updateStat(completedHabits, "Completed Habits: ", completedCount);
 
 //remaining habits counter
-   const remainCount = habits.length - completedCount;
+   const remainCount = tracker.habits.length - completedCount;
    updateStat(remainHabits, "Remaining Habits: ", remainCount);
    } //end of render function
 
