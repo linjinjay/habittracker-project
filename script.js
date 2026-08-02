@@ -40,6 +40,16 @@
     } //end of for
     return count;
     }  // end of countCompleteHabits function
+
+  //addHabit method
+    addHabit(habit) {
+        this.habits.push(habit);
+    } // end of addHabit method
+
+  //removeHabit method
+    removeHabit(index) {
+        this.habits.splice(index, 1);
+    } //end of removeHabit method
  } // end of class
 
 //declare tracker array variable
@@ -75,7 +85,7 @@
       return;
     }  // end of if
    const habit = new Habit(newHabit);
-   tracker.habits.push(habit);  //end of push
+   tracker.addHabit(habit);  //end of push
    
    saveHabits();
    renderHabits();
@@ -128,7 +138,7 @@
 
     //declare delete habit function
         function deleteHabit() {
-           tracker.habits.splice(index, 1);
+           tracker.removeHabit(index);
            saveHabits();
            renderHabits();
         }  // end of deleteHabit function
