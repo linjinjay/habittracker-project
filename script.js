@@ -18,7 +18,7 @@
          toggleCompleted() {
             this.completed = !this.completed;
          } //end of toggleCompleted
-      } //end of Habit Class
+      } //end of Habit class
 
 //create the habit array
    class HabitTracker {
@@ -50,6 +50,12 @@
     removeHabit(index) {
         this.habits.splice(index, 1);
     } //end of removeHabit method
+
+  //habit count method
+     getHabitCount() {
+         return this.habits.length;
+     } // end of getHabitCount method
+
  } // end of class
 
 //declare tracker array variable
@@ -160,14 +166,14 @@
    } //end of for loop.
 
 //Display the number of total habit     
-   updateStat(totalHabits, "Total Habits: ", tracker.habits.length);
+   updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount);
 
 //displays the count after checking every habit
    const completedCount = tracker.countCompletedHabits();
    updateStat(completedHabits, "Completed Habits: ", completedCount);
 
 //remaining habits counter
-   const remainCount = tracker.habits.length - completedCount;
+   const remainCount = tracker.getHabitCount() - completedCount;
    updateStat(remainHabits, "Remaining Habits: ", remainCount);
    } //end of render function
 
