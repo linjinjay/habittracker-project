@@ -18,7 +18,7 @@
          toggleCompleted() {
             this.completed = !this.completed;
          } //end of toggleCompleted
-      } //end of Habit 
+      } //end of Habit Class
 
 //create the habit array
    class HabitTracker {
