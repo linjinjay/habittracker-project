@@ -42,7 +42,8 @@
     }  // end of countCompleteHabits function
 
   //addHabit method
-    addHabit(habit) {
+    addHabit(name) {
+        const habit = new Habit(name);
         this.habits.push(habit);
     } // end of addHabit method
 
@@ -55,6 +56,11 @@
      getHabitCount() {
          return this.habits.length;
      } // end of getHabitCount method
+
+  // getHabits method
+     getHabits() {
+        return this.habits;
+     } // end of getHabits method
 
  } // end of class
 
@@ -90,8 +96,7 @@
       if(newHabit.trim() == "") {
       return;
     }  // end of if
-   const habit = new Habit(newHabit);
-   tracker.addHabit(habit);  //end of push
+   tracker.addHabit(newHabit);  //end of push
    
    saveHabits();
    renderHabits();
@@ -109,9 +114,10 @@
 //render habit function. Clears the page first. 
    function renderHabits() {
       habitList.innerHTML = "";
+      const habits = tracker.getHabits();
 
    //For loop to cycle through the habit array.
-     for(let index = 0; index < tracker.habits.length; index++) {
+     for(let index = 0; index < habits.length; index++) {
         let habit = tracker.habits[index];
 
    //create list variable. Displays the habit list. 
@@ -166,7 +172,7 @@
    } //end of for loop.
 
 //Display the number of total habit     
-   updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount);
+   updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount());
 
 //displays the count after checking every habit
    const completedCount = tracker.countCompletedHabits();
