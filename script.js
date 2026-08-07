@@ -48,7 +48,7 @@
     } // end of addHabit method
 
   //removeHabit method
-    removeHabit(index) {
+    deleteHabit(index) {
         this.habits.splice(index, 1);
     } //end of removeHabit method
 
@@ -118,7 +118,7 @@
 
    //For loop to cycle through the habit array.
      for(let index = 0; index < habits.length; index++) {
-        let habit = tracker.habits[index];
+        let habit = habits[index];
 
    //create list variable. Displays the habit list. 
       const li = document.createElement("li");
@@ -150,7 +150,7 @@
 
     //declare delete habit function
         function deleteHabit() {
-           tracker.removeHabit(index);
+           tracker.deleteHabit(index);
            saveHabits();
            renderHabits();
         }  // end of deleteHabit function
