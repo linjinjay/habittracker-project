@@ -74,7 +74,15 @@
          const stringHabits = JSON.stringify(habits);
          localStorage.setItem("habitKey", stringHabits);
       }
- }
+     load() {
+         const getHabits = localStorage.getItem("habitKey");
+
+         if(getHabits === null) {
+           return null;
+         }
+
+         return JSON.parse(getHabits);
+  } //end of class
 
 //declare tracker array variable
    const tracker = new HabitTracker();
