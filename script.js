@@ -62,6 +62,11 @@
         return this.habits;
      } // end of getHabits method
 
+  // toggleHabit method
+      toggleHabit(index) {
+         this.habits[index].toggleCompleted();
+      }
+
  } // end of class
 
 //declare tracker array variable
@@ -136,7 +141,7 @@
 
     //declare handleToggleHabit function
         function handleToggleHabit(){
-            habit.toggleCompleted();
+            tracker.toggleHabit(index);
             saveHabits();
             renderHabits();
         }
