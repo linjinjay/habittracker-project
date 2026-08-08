@@ -66,17 +66,21 @@
       toggleHabit(index) {
          this.habits[index].toggleCompleted();
       }
-
  } // end of class
+
+ // Data Storage class
+ class DataStorage {
+      save(habits) {
+         const stringHabits = JSON.stringify(habits);
+         localStorage.setItem("habitKey", stringHabits);
+      }
+ }
 
 //declare tracker array variable
    const tracker = new HabitTracker();
 
-//function save to local storage
-   function saveHabits() {
-      const stringHabits = JSON.stringify(tracker.habits);
-      localStorage.setItem("habitKey", stringHabits);
-   }
+// declare storage variable
+   const storage = new DataStorage();
 
 //function load from local storage
    function loadHabits() {
@@ -103,7 +107,7 @@
     }  // end of if
    tracker.addHabit(newHabit);  //end of push
    
-   saveHabits();
+   storage.save(tracker.getHabits());
    renderHabits();
    habitInput.value = "";
    }  //end of addHabit function
@@ -142,7 +146,7 @@
     //declare handleToggleHabit function
         function handleToggleHabit(){
             tracker.toggleHabit(index);
-            saveHabits();
+            storage.save(tracker.getHabits());
             renderHabits();
         }
 
@@ -156,7 +160,7 @@
     //declare delete habit function
         function deleteHabit() {
            tracker.deleteHabit(index);
-           saveHabits();
+           storage.save(tracker.getHabits());
            renderHabits();
         }  // end of deleteHabit function
     //listen for click of the delete button.
