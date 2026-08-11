@@ -82,6 +82,7 @@
          }
 
          return JSON.parse(getHabits);
+     } //end of load
   } //end of class
 
 //declare tracker array variable
