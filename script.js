@@ -66,7 +66,26 @@
       toggleHabit(index) {
          this.habits[index].toggleCompleted();
       }
- } // end of class
+
+  // habitlist creator method
+      loadHabits() {
+        const savedHabits = storage.load(); 
+
+        if(savedHabits !== null) {
+        this.habits = [];
+
+
+        for(let i = 0; i < savedHabits.length; i++) {
+            let savedHabit = savedHabits[i];
+            const newHabit = new Habit(
+                savedHabit.name,
+                savedHabit.completed
+            );
+            this.habits.push(newHabit);
+        } // end of for
+        } // end of if
+      } // end of habitlist creator method
+ } // end of HabitTracker class
 
  // Data Storage class
  class DataStorage {
@@ -91,22 +110,6 @@
 // declare storage variable
    const storage = new DataStorage();
 
-//function load from local storage
-   function loadHabits() {
-     const getHabits = localStorage.getItem("habitKey");
-
-   if(getHabits !== null){
-      
-      const savedHabits = JSON.parse(getHabits);        
-      tracker.habits = [];
-      for(let i = 0; i < savedHabits.length; i++) {
-         let savedHabit = savedHabits[i]; 
-         const newHabit = new Habit(savedHabit.name, savedHabit.completed);
-         tracker.habits.push(newHabit);
-       } // end of for
-      
-     } //end of if
-   }  // end of loadHabits function
 
 //declare add habit function
    function addHabit() {
@@ -202,5 +205,5 @@
    } //end of render function
 
 //run the render habit function
-   loadHabits();
+   tracker.loadHabits();
    renderHabits();
