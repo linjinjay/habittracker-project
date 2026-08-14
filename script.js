@@ -188,9 +188,6 @@ function renderHabits() {
     if (habit.completed) {
         li.style.textDecoration = "line-through";
         }  // end of if
-    else {
-        li.textContent = habit.name;
-        }  // end of else
 
     habitList.appendChild(li);
     li.appendChild(button);
@@ -201,7 +198,7 @@ function renderHabits() {
     //Display the number of total habit     
     updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount());
 
-    //displays the count after checking every habit
+    //displays the completed count after checking every habit
     const completedCount = tracker.countCompletedHabits();
     updateStat(completedHabits, "Completed Habits: ", completedCount);
 
