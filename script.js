@@ -25,8 +25,8 @@ class HabitTracker {
 
 //create the habit array
     constructor() {
-        this.habits = [];
-        this.storage = storage;  
+        this.habits = []; 
+        this.storage = storage; 
     } // end of constructor
 
 //count number of completed habits
@@ -48,6 +48,7 @@ class HabitTracker {
     addHabit(name) {
         const habit = new Habit(name);
         this.habits.push(habit);
+        this.storage.save(this.habits);
     } // end of addHabit method
 
 //removeHabit method
@@ -109,11 +110,12 @@ class DataStorage {
    
     } //end of class
 
+//declare tracker array variable
+const tracker = new HabitTracker();
+
 // declare storage variable
 const storage = new DataStorage();
 
-//declare tracker array variable
-const tracker = new HabitTracker();
 
 //declare add habit function
 function addHabit() {
@@ -122,9 +124,8 @@ function addHabit() {
       return;
     }  // end of if
    
-    tracker.addHabit(newHabit); 
-   
-    storage.save(tracker.getHabits());
+    tracker.addHabit(newHabit);    
+    
     renderHabits();
     habitInput.value = "";
     }  //end of addHabit function
