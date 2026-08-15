@@ -64,7 +64,7 @@ class HabitTracker {
 
 // getHabits method
     getHabits() {
-        return this.habits;
+        return [...this.habits];
     } // end of getHabits method
 
 // toggleHabit method
