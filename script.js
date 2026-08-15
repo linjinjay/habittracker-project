@@ -54,6 +54,7 @@ class HabitTracker {
 //removeHabit method
     deleteHabit(index) {
         this.habits.splice(index, 1);
+        this.storage.save(this.habits);
     } //end of removeHabit method
 
 //habit count method
@@ -178,7 +179,6 @@ function renderHabits() {
     //declare delete habit function
     function deleteHabit() {
         tracker.deleteHabit(index);
-        storage.save(tracker.getHabits());
         renderHabits();
         }  // end of deleteHabit function
     
