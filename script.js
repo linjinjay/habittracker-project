@@ -69,6 +69,7 @@ class HabitTracker {
 // toggleHabit method
     toggleHabit(index) {
         this.habits[index].toggleCompleted();
+        this.storage.save(this.habits);
     }
 
 // habitlist creator method
@@ -164,7 +165,6 @@ function renderHabits() {
     //declare handleToggleHabit function
     function handleToggleHabit(){
         tracker.toggleHabit(index);
-        storage.save(tracker.getHabits());
         renderHabits();
         }
 
