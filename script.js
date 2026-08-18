@@ -67,6 +67,10 @@ class HabitTracker {
         return [...this.habits];
     } // end of getHabits method
 
+    getHabit(index) {
+        return this.habits[index];
+    }
+
 // toggleHabit method
     toggleHabit(index) {
         this.habits[index].toggleCompleted();
@@ -143,11 +147,10 @@ function updateStat(element, label, value) {
 //render habit function. Clears the page first. 
 function renderHabits() {
     habitList.innerHTML = "";
-    const habits = tracker.getHabits();
 
    //For loop to cycle through the habit array.
-    for(let index = 0; index < habits.length; index++) {
-        let habit = habits[index];
+    for(let index = 0; index < tracker.getHabitCount(); index++) {
+        let habit = tracker.getHabit(index);
 
    //create list variable. Displays the habit list. 
     const li = document.createElement("li");
