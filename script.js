@@ -63,10 +63,6 @@ class HabitTracker {
     } // end of getHabitCount method
 
 // getHabits method
-    getHabits() {
-        return [...this.habits];
-    } // end of getHabits method
-
     getHabit(index) {
         return this.habits[index];
     }
