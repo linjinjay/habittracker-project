@@ -52,7 +52,14 @@ class HabitTracker {
     } // end of addHabit method
 
 //removeHabit method
-    deleteHabit(index) {
+    deleteHabit(habit) {
+        let index;
+        for(let i = 0; i < this.habits.length; i++) {
+            if(habit === this.habits[i]) {
+                index = i; 
+                break;
+            }
+        }
         this.habits.splice(index, 1);
         this.storage.save(this.habits);
     } //end of removeHabit method
@@ -177,7 +184,7 @@ function renderHabits() {
 
     //declare delete habit function
     function deleteHabit() {
-        tracker.deleteHabit(index);
+        tracker.deleteHabit(habit);
         renderHabits();
         }  // end of deleteHabit function
     
