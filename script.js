@@ -52,17 +52,16 @@ class HabitTracker {
     } // end of addHabit method
 
 //removeHabit method
-    deleteHabit(habit) {
-        let index;
-        for(let i = 0; i < this.habits.length; i++) {
-            if(habit === this.habits[i]) {
-                index = i; 
-                break;
-            }
-        }
-        this.habits.splice(index, 1);
-        this.storage.save(this.habits);
-    } //end of removeHabit method
+deleteHabit(habit) {
+    const index = this.habits.indexOf(habit);
+
+    if(index === -1) {
+        return;
+    }
+
+    this.habits.splice(index, 1);
+    this.storage.save(this.habits);
+}//end of removeHabit method
 
 //habit count method
     getHabitCount() {
