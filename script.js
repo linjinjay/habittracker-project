@@ -79,6 +79,13 @@ deleteHabit(habit) {
         this.storage.save(this.habits);
     }
 
+// for each method
+    forEachHabit(callback) {
+        for (let i = 0; i< this.habits.length; i++) {
+            callback(this.habits[i]);
+        }
+    }
+
 // habitlist creator method
     loadHabits() {
         const savedHabits = storage.load(); 
