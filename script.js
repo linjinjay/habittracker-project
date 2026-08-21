@@ -152,7 +152,7 @@ function updateStat(element, label, value) {
 function renderHabits() {
     habitList.innerHTML = "";
 
-   //For loop to cycle through the habit array.
+   //Ask HabitTracker to provide each habit for the UI to display
     tracker.forEachHabit(function(habit) {
 
    //create list variable. Displays the habit list. 
