@@ -158,8 +158,7 @@ function renderHabits() {
     habitList.innerHTML = "";
 
    //For loop to cycle through the habit array.
-    for(let index = 0; index < tracker.getHabitCount(); index++) {
-        let habit = tracker.getHabit(index);
+    tracker.forEachHabit(function(habit) {
 
    //create list variable. Displays the habit list. 
     const li = document.createElement("li");
@@ -206,7 +205,7 @@ function renderHabits() {
     li.appendChild(button);
     li.appendChild(deleteButton);
 
-    } //end of for loop.
+    }); //end of for loop.
 
     //Display the number of total habit     
     updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount());
