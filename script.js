@@ -68,11 +68,6 @@ deleteHabit(habit) {
         return this.habits.length;
     } // end of getHabitCount method
 
-// getHabits method
-    getHabit(index) {
-        return this.habits[index];
-    }
-
 // toggleHabit method
     toggleHabit(habit) {
         habit.toggleCompleted();
