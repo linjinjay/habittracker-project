@@ -24,7 +24,7 @@ class Habit {
 class HabitTracker {
 
 //create the habit array
-    constructor() {
+    constructor(storage) {
         this.habits = [];
         this.storage = storage;  
     } // end of constructor
@@ -124,7 +124,7 @@ class DataStorage {
 const storage = new DataStorage();
 
 //declare tracker array variable
-const tracker = new HabitTracker();
+const tracker = new HabitTracker(storage);
 
 //declare add habit function
 function addHabit() {
