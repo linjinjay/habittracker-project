@@ -1,14 +1,3 @@
-//declare the list, button, and text box variables
-const habitList = document.getElementById("habit-list");    //the list
-const addButton = document.getElementById("add-button");    //button
-const habitInput = document.getElementById("habit-input");  //text box
-//Total habits counter
-const totalHabits = document.getElementById("total-habits");
-//count the completed habits counter
-const completedHabits = document.getElementById("completed-habits");
-//remaining habits counter
-const remainHabits = document.getElementById("remaining-habits");
-
 //declare create new habit class
 class Habit {
     constructor(name, completed = false) {
@@ -120,37 +109,55 @@ class DataStorage {
    
     } //end of class
 
+//user interface class
+class UserInterface {
+    constructor(tracker) {
+        this.tracker = tracker;
+
+        this.habitList = document.getElementById("habit-list");    
+        this.addButton = document.getElementById("add-button");    
+        this.habitInput = document.getElementById("habit-input");  
+    
+        this.totalHabits = document.getElementById("total-habits");
+        this.completedHabits = document.getElementById("completed-habits");
+        this.remainHabits = document.getElementById("remaining-habits");
+    }
+
+    updateStat(element, label, value) {
+        element.textContent = label + value;
+    }
+
+    addHabit() {
+        const newHabit = this.habitInput.value;
+
+        if(newHabit.trim() == "") {
+            return;
+        }
+
+        this.tracker.addHabit(newHabit);
+
+        renderHabits();
+        this.habitInput.value = "";
+    }
+} // end of class
+
 // declare storage variable
 const storage = new DataStorage();
 
 //declare tracker array variable
 const tracker = new HabitTracker(storage);
 
-//declare add habit function
-function addHabit() {
-    const newHabit = habitInput.value;
-    if(newHabit.trim() == "") {
-      return;
-    }  // end of if
-   
-    tracker.addHabit(newHabit); 
-   
-    
-    renderHabits();
-    habitInput.value = "";
-    }  //end of addHabit function
+//declare UI variable
+const ui = new UserInterface(tracker);
 
 //listen for add habit button to be clicked
-addButton.addEventListener("click", addHabit);
-
-//update stats function
-function updateStat(element, label, value) {
-      element.textContent = label + value;
-    }
+ui.addButton.addEventListener("click", function() {
+    ui.addHabit();
+});
 
 //render habit function. Clears the page first. 
 function renderHabits() {
-    habitList.innerHTML = "";
+    ui.habitList.innerHTML = "";
 
    //Ask HabitTracker to provide each habit for the UI to display
     tracker.forEachHabit(function(habit) {
@@ -196,7 +203,7 @@ function renderHabits() {
         li.style.textDecoration = "line-through";
         }  // end of if
 
-    habitList.appendChild(li);
+    ui.habitList.appendChild(li);
     li.appendChild(button);
     li.appendChild(deleteButton);
 
