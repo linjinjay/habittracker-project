@@ -209,16 +209,17 @@ function renderHabits() {
 
     }); //end of for loop.
 
+
     //Display the number of total habit     
-    updateStat(totalHabits, "Total Habits: ", tracker.getHabitCount());
+    ui.updateStat(ui.totalHabits, "Total Habits: ", tracker.getHabitCount());
 
     //displays the completed count after checking every habit
     const completedCount = tracker.countCompletedHabits();
-    updateStat(completedHabits, "Completed Habits: ", completedCount);
+    ui.updateStat(ui.completedHabits, "Completed Habits: ", completedCount);
 
     //remaining habits counter
     const remainCount = tracker.getHabitCount() - completedCount;
-    updateStat(remainHabits, "Remaining Habits: ", remainCount);
+    ui.updateStat(ui.remainHabits, "Remaining Habits: ", remainCount);
     } //end of render function
 
 //run the load method and render habit function
