@@ -121,6 +121,10 @@ class UserInterface {
         this.totalHabits = document.getElementById("total-habits");
         this.completedHabits = document.getElementById("completed-habits");
         this.remainHabits = document.getElementById("remaining-habits");
+
+        this.addButton.addEventListener("click", () => {
+            this.addHabit();
+        });
     }
 
     updateStat(element, label, value) {
@@ -136,8 +140,59 @@ class UserInterface {
 
         this.tracker.addHabit(newHabit);
 
-        renderHabits();
+        this.renderHabits();
         this.habitInput.value = "";
+    }
+
+    renderHabits() {
+        this.habitList.innerHTML = "";
+
+        this.tracker.forEachHabit((habit) => {
+            const li = document.createElement('li');
+            li.textContent = habit.name;
+
+        const button = document.createElement("button");
+            if(habit.completed) {
+                button.textContent = "Undo";
+            }
+            else {
+                button.textContent = "Complete";
+            }
+
+        const handleToggleHabit = () => {
+            this.tracker.toggleHabit(habit);
+            this.renderHabits();
+        }
+
+        button.addEventListener("click", handleToggleHabit);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+
+        const deleteHabit = () => {
+            this.tracker.deleteHabit(habit);
+            this.renderHabits();
+        }
+
+        deleteButton.addEventListener("click", deleteHabit);
+
+        if(habit.completed) {
+            li.style.textDecoration = "line-through";
+        }
+
+        this.habitList.appendChild(li);
+        li.appendChild(button);
+        li.appendChild(deleteButton);
+        });
+
+        this.updateStat(this.totalHabits, "Total Habits: ", this.tracker.getHabitCount());
+
+        const completedCount = this.tracker.countCompletedHabits();
+        this.updateStat(this.completedHabits, "Completed Habits: ", completedCount);
+
+        const remainCount = this.tracker.getHabitCount() - completedCount;
+        this.updateStat(this.remainHabits, "Remaining Habits: ", remainCount);
+    
     }
 } // end of class
 
@@ -150,78 +205,6 @@ const tracker = new HabitTracker(storage);
 //declare UI variable
 const ui = new UserInterface(tracker);
 
-//listen for add habit button to be clicked
-ui.addButton.addEventListener("click", function() {
-    ui.addHabit();
-});
-
-//render habit function. Clears the page first. 
-function renderHabits() {
-    ui.habitList.innerHTML = "";
-
-   //Ask HabitTracker to provide each habit for the UI to display
-    tracker.forEachHabit(function(habit) {
-
-   //create list variable. Displays the habit list. 
-    const li = document.createElement("li");
-    li.textContent = habit.name;
-
-   //complete button, if completed is true, button will show undo.
-    const button = document.createElement("button");
-        if (habit.completed) {
-           button.textContent = "Undo";
-        }  //end of if
-        else {
-          button.textContent = "Complete";
-        }  // end of else
-
-
-    //declare handleToggleHabit function
-    function handleToggleHabit(){
-        tracker.toggleHabit(habit);
-        renderHabits();
-        }
-
-    //listen for click of the button
-    button.addEventListener("click", handleToggleHabit);
-
-    //delete button. 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-
-    //declare delete habit function
-    function deleteHabit() {
-        tracker.deleteHabit(habit);
-        renderHabits();
-        }  // end of deleteHabit function
-    
-    //listen for click of the delete button.
-    deleteButton.addEventListener("click", deleteHabit);
-
-    //cross off habit if it is completed with a line through. 
-    if (habit.completed) {
-        li.style.textDecoration = "line-through";
-        }  // end of if
-
-    ui.habitList.appendChild(li);
-    li.appendChild(button);
-    li.appendChild(deleteButton);
-
-    }); //end of for loop.
-
-
-    //Display the number of total habit     
-    ui.updateStat(ui.totalHabits, "Total Habits: ", tracker.getHabitCount());
-
-    //displays the completed count after checking every habit
-    const completedCount = tracker.countCompletedHabits();
-    ui.updateStat(ui.completedHabits, "Completed Habits: ", completedCount);
-
-    //remaining habits counter
-    const remainCount = tracker.getHabitCount() - completedCount;
-    ui.updateStat(ui.remainHabits, "Remaining Habits: ", remainCount);
-    } //end of render function
-
 //run the load method and render habit function
 tracker.loadHabits();
-renderHabits();
+ui.renderHabits();
