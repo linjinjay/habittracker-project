@@ -72,7 +72,7 @@ deleteHabit(habit) {
 
 // habitlist creator method
     loadHabits() {
-        const savedHabits = storage.load(); 
+        const savedHabits = this.storage.load(); 
 
         if(savedHabits !== null) {
         this.habits = [];
@@ -144,12 +144,9 @@ class UserInterface {
         this.habitInput.value = "";
     }
 
-    renderHabits() {
-        this.habitList.innerHTML = "";
-
-        this.tracker.forEachHabit((habit) => {
-            const li = document.createElement('li');
-            li.textContent = habit.name;
+    renderHabit(habit) {        
+        const li = document.createElement('li');
+        li.textContent = habit.name;
 
         const button = document.createElement("button");
             if(habit.completed) {
@@ -183,7 +180,15 @@ class UserInterface {
         this.habitList.appendChild(li);
         li.appendChild(button);
         li.appendChild(deleteButton);
-        });
+        }
+    
+
+    renderHabits() {
+        this.habitList.innerHTML = "";
+
+        this.tracker.forEachHabit((habit) => {
+            this.renderHabit(habit);
+        });        
 
         this.updateStat(this.totalHabits, "Total Habits: ", this.tracker.getHabitCount());
 
