@@ -151,6 +151,7 @@ class UserInterface {
         const button = document.createElement("button");
             if(habit.completed) {
                 button.textContent = "Undo";
+                li.style.textDecoration = "line-through";
             }
             else {
                 button.textContent = "Complete";
@@ -172,10 +173,6 @@ class UserInterface {
         }
 
         deleteButton.addEventListener("click", deleteHabit);
-
-        if(habit.completed) {
-            li.style.textDecoration = "line-through";
-        }
 
         this.habitList.appendChild(li);
         li.appendChild(button);
