@@ -173,10 +173,11 @@ class UserInterface {
         }
 
         deleteButton.addEventListener("click", deleteHabit);
-
-        this.habitList.appendChild(li);
+        
         li.appendChild(button);
         li.appendChild(deleteButton);
+
+        return li;
         }
     
 
@@ -184,7 +185,8 @@ class UserInterface {
         this.habitList.innerHTML = "";
 
         this.tracker.forEachHabit((habit) => {
-            this.renderHabit(habit);
+            const li = this.renderHabit(habit);
+            this.habitList.appendChild(li);
         });        
 
         this.updateStat(this.totalHabits, "Total Habits: ", this.tracker.getHabitCount());
