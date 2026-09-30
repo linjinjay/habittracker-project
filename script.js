@@ -179,8 +179,17 @@ class UserInterface {
 
         return li;
         }
-    
 
+    renderStats() {
+        this.updateStat(this.totalHabits, "Total Habits: ", this.tracker.getHabitCount());
+
+        const completedCount = this.tracker.countCompletedHabits();
+        this.updateStat(this.completedHabits, "Completed Habits: ", completedCount);
+
+        const remainCount = this.tracker.getHabitCount() - completedCount;
+        this.updateStat(this.remainHabits, "Remaining Habits: ", remainCount);
+    }
+    
     renderHabits() {
         this.habitList.innerHTML = "";
 
@@ -189,14 +198,7 @@ class UserInterface {
             this.habitList.appendChild(li);
         });        
 
-        this.updateStat(this.totalHabits, "Total Habits: ", this.tracker.getHabitCount());
-
-        const completedCount = this.tracker.countCompletedHabits();
-        this.updateStat(this.completedHabits, "Completed Habits: ", completedCount);
-
-        const remainCount = this.tracker.getHabitCount() - completedCount;
-        this.updateStat(this.remainHabits, "Remaining Habits: ", remainCount);
-    
+        this.renderStats();    
     }
 } // end of class
 
