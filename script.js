@@ -19,19 +19,15 @@ class HabitTracker {
     } // end of constructor
 
 //count number of completed habits
-   countCompletedHabits() {
-  //start count at 0
-    let count = 0;
-  //look at each habit
-    for(let i = 0; i < this.habits.length; i++) {
-  //testing if statement
-    let habit = this.habits[i];
-    if (habit.completed) { 
-    count = count + 1;
-    } //end of if habit.complete condition
-    } //end of for
-    return count;
-    }  // end of countCompleteHabits function
+    countCompletedHabits() {
+        return this.habits.reduce((count, habit) => {
+        if (habit.completed) {
+            return count + 1;
+        }
+
+        return count;
+        }, 0);
+    }
 
 //addHabit method
     addHabit(name) {
