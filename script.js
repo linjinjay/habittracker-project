@@ -65,10 +65,9 @@ deleteHabit(habit) {
 
 // for each method
     forEachHabit(callback) {
-        for (let i = 0; i< this.habits.length; i++) {
-            callback(this.habits[i]);
+        this.habits.forEach(callback);
         }
-    }
+    
 
 // habitlist creator method
     loadHabits() {
