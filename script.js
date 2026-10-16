@@ -53,6 +53,12 @@ deleteHabit(habit) {
         return this.habits.length;
     } // end of getHabitCount method
 
+    getIncompleteHabits() {
+        return this.habits.filter((habit) => {
+            return habit.completed === false;
+        });
+    }
+
 // toggleHabit method
     toggleHabit(habit) {
         habit.toggleCompleted();
