@@ -189,7 +189,7 @@ class UserInterface {
         const completedCount = this.tracker.countCompletedHabits();
         this.updateStat(this.completedHabits, "Completed Habits: ", completedCount);
 
-        const remainCount = this.tracker.getIncompleteHabits().length;
+        const remainCount = this.tracker.getHabitCount() - completedCount;
         this.updateStat(this.remainHabits, "Remaining Habits: ", remainCount);
     }
     
