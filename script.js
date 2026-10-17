@@ -115,12 +115,14 @@ class UserInterface {
     constructor(tracker) {
         this.tracker = tracker;
 
-        this.habitList = document.getElementById("habit-list");    
+        this.habitList = document.getElementById("habit-list"); 
+        this.incompleteList = document.getElementById("incomplete-list");   
         this.addButton = document.getElementById("add-button");    
         this.habitInput = document.getElementById("habit-input");  
     
         this.totalHabits = document.getElementById("total-habits");
-        this.completedHabits = document.getElementById("completed-habits");
+        this.completedHabits = document.getElementById("completed-habits");  
+        this.incompleteHabits = document.getElementById("incomplete-habits");     
         this.remainHabits = document.getElementById("remaining-habits");
 
         this.addButton.addEventListener("click", () => {
@@ -187,17 +189,25 @@ class UserInterface {
         const completedCount = this.tracker.countCompletedHabits();
         this.updateStat(this.completedHabits, "Completed Habits: ", completedCount);
 
-        const remainCount = this.tracker.getHabitCount() - completedCount;
+        const remainCount = this.tracker.getIncompleteHabits().length;
         this.updateStat(this.remainHabits, "Remaining Habits: ", remainCount);
     }
     
     renderHabits() {
         this.habitList.innerHTML = "";
+        this.incompleteList.innerHTML = "";
+        this.incompleteHabits.innerHTML = "Below are Habits not completed yet: "
+        const incompleteHabit = this.tracker.getIncompleteHabits();
+
+        incompleteHabit.forEach((habit) => {
+            const li = this.renderHabit(habit);
+            this.incompleteList.appendChild(li);
+        })
 
         this.tracker.forEachHabit((habit) => {
             const li = this.renderHabit(habit);
             this.habitList.appendChild(li);
-        });        
+        });       
 
         this.renderStats();    
     }
