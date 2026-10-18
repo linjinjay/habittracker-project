@@ -105,7 +105,12 @@ class DataStorage {
            return null;
         }
 
-        return JSON.parse(getHabits);
+        try{
+            return JSON.parse(getHabits);
+        } catch (error) {
+            console.log("Could not load saved habits: ", error);
+            return null;
+        }
     } //end of load
    
     } //end of class
